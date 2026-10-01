@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Fitness Coach</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='ai-coach.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="ai-page">
+
+        <!-- HEADER -->
+
+        <div class="coach-header">
+
+            <div class="coach-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h1>AI Fitness Coach</h1>
+
+                <p>
+                    Get personalized workout, nutrition,
+                    weight loss and fitness guidance.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- QUESTION FORM -->
+
+        <div class="chat-card">
+
+            <form method="POST">
+
+                <textarea
+
+                    name="question"
+
+                    class="question-input"
+
+                    placeholder="Ask anything about workouts, nutrition, weight loss, muscle gain, cardio, fitness goals..."
+
+                    required
+
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="ask-btn">
+
+                    🚀 Ask AI Coach
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- AI ANSWER -->
+
+        {% if answer %}
+
+        <div class="answer-card">
+
+            <h3>
+                💡 AI Recommendation
+            </h3>
+
+            <p>
+                {{ answer }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        <!-- QUICK QUESTIONS -->
+
+        <div class="quick-section">
+
+            <h2>
+                Popular Questions
+            </h2>
+
+            <div class="question-grid">
+
+                <div class="question-card">
+                    💪 How much protein should I eat daily?
+                </div>
+
+                <div class="question-card">
+                    🔥 Can I lose fat and gain muscle together?
+                </div>
+
+                <div class="question-card">
+                    🏃 Best exercises for belly fat?
+                </div>
+
+                <div class="question-card">
+                    🍎 How many calories should I eat?
+                </div>
+
+                <div class="question-card">
+                    🏋️ Best workout split for muscle gain?
+                </div>
+
+                <div class="question-card">
+                    ❤️ How much cardio should I do weekly?
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FITNESS TIPS -->
+
+        <div class="tips-section">
+
+            <h2>
+                Daily Fitness Tips
+            </h2>
+
+            <div class="tips-grid">
+
+                <div class="tip-card">
+
+                    <h3>💧 Stay Hydrated</h3>
+
+                    <p>
+                        Drink at least 3 liters of water daily.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <h3>🍗 Protein Intake</h3>
+
+                    <p>
+                        Consume protein in every meal.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <h3>😴 Sleep Recovery</h3>
+
+                    <p>
+                        Aim for 7–9 hours of quality sleep.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <h3>🏃 Active Lifestyle</h3>
+
+                    <p>
+                        Walk at least 8,000 steps every day.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="action-section">
+
+            <a href="/dashboard/{{name}}/{{email}}"
+               class="action-btn">
+
+                📊 Dashboard
+
+            </a>
+
+            <a href="/workout/{{email}}"
+               class="action-btn">
+
+                🏋️ Workout
+
+            </a>
+
+            <a href="/nutrition/{{email}}"
+               class="action-btn">
+
+                🍎 Nutrition
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

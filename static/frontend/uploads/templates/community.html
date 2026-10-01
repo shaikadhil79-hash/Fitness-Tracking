@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Community</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='community.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="community-container">
+
+    <div class="community-header">
+        <h1>👥 Fitness Community</h1>
+        <p>Share your fitness journey and inspire others</p>
+    </div>
+
+    <!-- Create Post -->
+
+    <div class="create-post">
+
+        <h2>✍️ Create Post</h2>
+
+        <form>
+
+            <textarea
+            placeholder="What's your fitness update today?"
+            ></textarea>
+
+            <input
+            type="file"
+            accept="image/*">
+
+            <button type="submit">
+                Post Update
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Feed -->
+
+    <div class="feed">
+
+        <div class="post-card">
+
+            <div class="post-header">
+
+                <img src="https://i.pravatar.cc/100?img=1">
+
+                <div>
+                    <h3>Adhil SJ</h3>
+                    <span>2 hours ago</span>
+                </div>
+
+            </div>
+
+            <p>
+                🏋️ Completed Chest Workout Today.
+                Burned 450 Calories 🔥
+            </p>
+
+            <img
+            class="post-image"
+            src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800">
+
+            <div class="post-actions">
+
+                <button>❤️ 25 Likes</button>
+
+                <button>💬 8 Comments</button>
+
+                <button>📤 Share</button>
+
+            </div>
+
+        </div>
+
+        <div class="post-card">
+
+            <div class="post-header">
+
+                <img src="https://i.pravatar.cc/100?img=2">
+
+                <div>
+                    <h3>Rahul</h3>
+                    <span>5 hours ago</span>
+                </div>
+
+            </div>
+
+            <p>
+                🏃 Completed 5 KM Running Challenge
+                today.
+            </p>
+
+            <div class="post-actions">
+
+                <button>❤️ 32 Likes</button>
+
+                <button>💬 10 Comments</button>
+
+                <button>📤 Share</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

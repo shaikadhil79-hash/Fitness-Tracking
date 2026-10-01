@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
+
+<title>Add Workout</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='workout.css') }}">
+
+</head>
+
+<body>
+
+<div class="bg-circle one"></div>
+<div class="bg-circle two"></div>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
+
+        <h1>
+
+            Add Your
+            <span>Workout</span>
+
+        </h1>
+
+        <p>
+
+            Track gym workouts,
+            cardio exercises,
+            sets, reps,
+            calories burned,
+            and workout analytics.
+
+        </p>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <h2>
+
+            Workout Details
+
+        </h2>
+
+        <form action="/add_workout"
+              method="POST">
+
+            <input type="hidden"
+                   name="email"
+                   value="{{ email }}">
+
+            <!-- WORKOUT CONTAINER -->
+
+            <div id="workout-container">
+
+                <!-- WORKOUT ROW -->
+
+                <div class="workout-row">
+
+                    <!-- WORKOUT TYPE -->
+
+                    <select
+                    name="workout_type[]"
+                    class="workout-type"
+                    onchange="toggleGymFields(this)">
+
+                        <option value="Running">
+                            Running
+                        </option>
+
+                        <option value="Cycling">
+                            Cycling
+                        </option>
+
+                        <option value="Gym">
+                            Gym
+                        </option>
+
+                        <option value="Yoga">
+                            Yoga
+                        </option>
+
+                        <option value="Swimming">
+                            Swimming
+                        </option>
+
+                    </select>
+
+                    <!-- EXERCISE -->
+
+                    <select
+                    name="exercise_name[]"
+                    class="exercise-select">
+
+                        <option value="">
+                            Select Exercise
+                        </option>
+
+                    </select>
+
+                    <!-- REPS -->
+
+                    <input type="number"
+                           name="reps[]"
+                           class="reps-input"
+                           placeholder="Reps">
+
+                    <!-- SETS -->
+
+                    <input type="number"
+                           name="sets[]"
+                           class="sets-input"
+                           placeholder="Sets">
+
+                    <!-- DURATION -->
+
+                    <input type="number"
+                           name="duration[]"
+                           placeholder="Duration"
+                           required>
+
+                    <!-- DURATION TYPE -->
+
+                    <select
+                    name="duration_type[]">
+
+                        <option value="minutes">
+                            Minutes
+                        </option>
+
+                        <option value="hours">
+                            Hours
+                        </option>
+
+                    </select>
+
+                    <!-- DATE & TIME -->
+
+                    <input type="datetime-local"
+                           name="workout_time[]"
+                           required>
+
+                    <!-- ADD BUTTON -->
+
+                    <button type="button"
+                            class="plus-btn"
+                            onclick="addWorkoutRow()">
+
+                        +
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- SUBMIT -->
+
+            <button type="submit"
+                    class="submit-btn">
+
+                Save Workout
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const gymExercises = {
+
+    Chest: [
+
+        "Bench Press",
+        "Fly",
+        "Push-ups"
+    ],
+
+    Back: [
+
+        "Pull-ups",
+        "Lat Pulldown",
+        "Rows"
+    ],
+
+    Shoulders: [
+
+        "Overhead Press",
+        "Lateral Raise"
+    ],
+
+    Arms: [
+
+        "Biceps Curl",
+        "Triceps Pushdown"
+    ],
+
+    Legs: [
+
+        "Squats",
+        "Lunges",
+        "Deadlifts",
+        "Leg Press"
+    ],
+
+    Core: [
+
+        "Plank",
+        "Crunches",
+        "Leg Raises"
+    ],
+
+    Cardio: [
+
+        "Treadmill",
+        "Bike",
+        "Rowing"
+    ]
+};
+
+function toggleGymFields(select){
+
+    const row =
+    select.closest('.workout-row');
+
+    const exerciseSelect =
+    row.querySelector(
+        '.exercise-select'
+    );
+
+    const repsInput =
+    row.querySelector(
+        '.reps-input'
+    );
+
+    const setsInput =
+    row.querySelector(
+        '.sets-input'
+    );
+
+    if(select.value === 'Gym'){
+
+        exerciseSelect.innerHTML = '';
+
+        for(const group in gymExercises){
+
+            const optgroup =
+            document.createElement(
+                'optgroup'
+            );
+
+            optgroup.label = group;
+
+            gymExercises[group]
+            .forEach(exercise=>{
+
+                const option =
+                document.createElement(
+                    'option'
+                );
+
+                option.value =
+                exercise;
+
+                option.textContent =
+                exercise;
+
+                optgroup.appendChild(
+                    option
+                );
+            });
+
+            exerciseSelect.appendChild(
+                optgroup
+            );
+        }
+
+        exerciseSelect.style.display =
+        'block';
+
+        repsInput.style.display =
+        'block';
+
+        setsInput.style.display =
+        'block';
+    }
+
+    else{
+
+        exerciseSelect.style.display =
+        'none';
+
+        repsInput.style.display =
+        'none';
+
+        setsInput.style.display =
+        'none';
+    }
+}
+
+function addWorkoutRow(){
+
+    const container =
+    document.getElementById(
+        'workout-container'
+    );
+
+    const row =
+    document.createElement(
+        'div'
+    );
+
+    row.className =
+    'workout-row';
+
+    row.innerHTML = `
+
+        <select
+        name="workout_type[]"
+        class="workout-type"
+        onchange="toggleGymFields(this)">
+
+            <option value="Running">
+                Running
+            </option>
+
+            <option value="Cycling">
+                Cycling
+            </option>
+
+            <option value="Gym">
+                Gym
+            </option>
+
+            <option value="Yoga">
+                Yoga
+            </option>
+
+            <option value="Swimming">
+                Swimming
+            </option>
+
+        </select>
+
+        <select
+        name="exercise_name[]"
+        class="exercise-select">
+
+            <option value="">
+                Select Exercise
+            </option>
+
+        </select>
+
+        <input type="number"
+               name="reps[]"
+               class="reps-input"
+               placeholder="Reps">
+
+        <input type="number"
+               name="sets[]"
+               class="sets-input"
+               placeholder="Sets">
+
+        <input type="number"
+               name="duration[]"
+               placeholder="Duration"
+               required>
+
+        <select
+        name="duration_type[]">
+
+            <option value="minutes">
+                Minutes
+            </option>
+
+            <option value="hours">
+                Hours
+            </option>
+
+        </select>
+
+        <input type="datetime-local"
+               name="workout_time[]"
+               required>
+
+        <button type="button"
+                class="plus-btn"
+                onclick="addWorkoutRow()">
+
+            +
+
+        </button>
+    `;
+
+    container.appendChild(row);
+}
+
+document
+.querySelectorAll(
+'.workout-type'
+)
+.forEach(select=>{
+
+    toggleGymFields(select);
+});
+
+</script>
+
+</body>
+</html>

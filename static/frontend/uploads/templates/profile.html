@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Health Profile</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='profile.css') }}">
+</head>
+
+<body>
+
+<div class="profile-container">
+
+    <!-- Profile Header -->
+
+    <div class="profile-photo">
+
+
+</div>
+
+    <div class="profile-header">
+
+        <div class="profile-avatar-container">
+
+            {% if profile_image %}
+
+            <img
+                src="{{ url_for('static', filename='uploads/' + profile_image) }}"
+                width="150"
+                height="150"
+                style="border-radius:50%;object-fit:cover;"
+            >
+
+            {% else %}
+
+            <img
+                src="{{ url_for('static', filename='images/default-user.png') }}"
+                width="150"
+                height="150"
+                style="border-radius:50%;object-fit:cover;"
+            >
+
+            {% endif %}
+
+
+     <!-- <img
+        src="{{ url_for('static',
+        filename='uploads/' + profile_image) }}"
+        class="profile-avatar-img"> -->
+
+    <button class="edit-profile-btn">
+        ✏️ Edit Profile Photo
+    </button>
+    <form
+        action="/upload_profile_photo"
+        method="POST"
+        enctype="multipart/form-data"
+        id="profilePhotoForm">
+
+        <input type="hidden"
+               name="email"
+               value="{{ email }}">
+
+        <input
+            type="file"
+            id="profileImageInput"
+            name="profile_image"
+            accept="image/*"
+            hidden>
+
+    </form>
+
+    <button
+        class="edit-profile-btn"
+        onclick="document.getElementById('profileImageInput').click();">
+
+        ✏️ Edit Profile
+
+    </button>
+
+</div>
+
+        <div class="profile-info">
+
+            <h1>{{ name }}</h1>
+
+            <p>{{ email }}</p>
+
+            <span class="profile-badge">
+                Fitness Member
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Profile Form -->
+
+    <div class="profile-form-card">
+
+    <h2>🏋️ Complete Your Health Profile</h2>
+
+    <form action="/save_profile" 
+          method="post"
+          enctype="multipart/form-data">
+
+         <input type="hidden"
+            name="email"
+            value="{{ email }}">
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>Height (cm)</label>
+                <input type="number" step="0.1" name="height" required>
+            </div>
+
+            <div class="input-group">
+                <label>Weight (kg)</label>
+                <input type="number" step="0.1" name="weight" required>
+            </div>
+
+            <div class="input-group">
+                <label>Age</label>
+                <input type="number" name="age" required>
+            </div>
+
+            <div class="input-group">
+                <label>Gender</label>
+                <select name="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Activity Level</label>
+                <select name="activity_level">
+                    <option>Sedentary</option>
+                    <option>Moderately Active</option>
+                    <option>Very Active</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Fitness Goal</label>
+                <select name="goal">
+                    <option>Lose Fat</option>
+                    <option>Gain Muscle</option>
+                    <option>Maintain Fitness</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="textarea-group">
+            <label>Health Conditions</label>
+            <textarea
+                name="health_conditions"
+                placeholder="Mention injuries, allergies, medical conditions..."
+            ></textarea>
+        </div>
+
+        <div class="textarea-group">
+            <label>Dietary Preferences</label>
+            <textarea
+                name="diet_preferences"
+                placeholder="Vegetarian, Vegan, High Protein, etc..."
+            ></textarea>
+        </div>
+
+        <div class="button-group">
+
+            <button class="save-btn" type="submit">
+                💾 Save Profile
+            </button>
+
+            <a href="/dashboard/{{name}}/{{email}}"
+               class="dashboard-btn">
+                📊 Dashboard
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+<script>
+
+document
+.getElementById("profileImageInput")
+.addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(file){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            document
+            .getElementById("profilePreview")
+            .src = e.target.result;
+
+        }
+
+        reader.readAsDataURL(file);
+
+        document
+        .getElementById("profilePhotoForm")
+        .submit();
+    }
+});
+
+</script>
+
+</body>
+</html>

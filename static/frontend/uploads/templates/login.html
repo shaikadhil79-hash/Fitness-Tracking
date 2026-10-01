@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0">
+
+<title>AI Fitness Login</title>
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="bg-circle one"></div>
+<div class="bg-circle two"></div>
+<div class="bg-circle three"></div>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-section">
+
+        <h1>
+            SmartFitness
+            <span>Tracking</span>
+            System
+        </h1>
+
+        <p>
+            Track workouts, calories,
+            goals, analytics, nutrition,
+            and AI fitness recommendations
+            in one futuristic platform.
+        </p>
+
+       
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-section">
+
+        <!-- LOGIN FORM -->
+
+        <div class="form-container"
+             id="loginForm">
+
+            <h2>Login</h2>
+
+            <form action="/login"
+                  method="POST">
+
+                <input type="email"
+                       name="email"
+                       placeholder="Enter Email"
+                       required>
+
+                <input type="password"
+                       name="password"
+                       placeholder="Enter Password"
+                       required>
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <p>
+                Don't have an account?
+
+                <span onclick="showRegister()">
+                    Register
+                </span>
+            </p>
+
+        </div>
+
+        <!-- REGISTER FORM -->
+
+        <div class="form-container hidden"
+             id="registerForm">
+
+            <h2>Register</h2>
+
+            <form action="/register"
+                  method="POST">
+
+                <input type="text"
+                       name="name"
+                       placeholder="Enter Name"
+                       required>
+
+                <input type="email"
+                       name="email"
+                       placeholder="Enter Email"
+                       required>
+
+                <input type="text"
+                       name="phone"
+                       placeholder="Enter Phone Number"
+                       required>
+
+                <input type="password"
+                       name="password"
+                       placeholder="Create Password"
+                       required>
+
+                <button type="submit">
+                    Register
+                </button>
+
+            </form>
+
+            <p>
+                Already have an account?
+
+                <span onclick="showLogin()">
+                    Login
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showRegister(){
+
+    document
+    .getElementById(
+        'loginForm'
+    )
+    .classList
+    .add('hidden');
+
+    document
+    .getElementById(
+        'registerForm'
+    )
+    .classList
+    .remove('hidden');
+}
+
+function showLogin(){
+
+    document
+    .getElementById(
+        'registerForm'
+    )
+    .classList
+    .add('hidden');
+
+    document
+    .getElementById(
+        'loginForm'
+    )
+    .classList
+    .remove('hidden');
+}
+
+</script>
+
+</body>
+</html>

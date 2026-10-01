@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Challenges</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='challenges.css') }}">
+</head>
+
+<body>
+
+<div class="challenge-container">
+
+    <!-- HEADER -->
+
+    <div class="challenge-header">
+
+        <div class="challenge-icon">
+            🏆
+        </div>
+
+        <h1>Fitness Challenges</h1>
+
+        <p>
+            Complete challenges, earn achievements,
+            and stay motivated.
+        </p>
+
+    </div>
+
+    <!-- DAILY CHALLENGES -->
+
+    <section class="challenge-section">
+
+        <h2>🔥 Daily Challenges</h2>
+
+        <div class="challenge-grid">
+
+            <div class="challenge-card">
+
+                <h3>100 Push-Ups</h3>
+
+                <p>
+                    Complete 100 push-ups today.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"
+                         style="width:60%;">
+                    </div>
+                </div>
+
+                <span>60 / 100 Completed</span>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>5 KM Running</h3>
+
+                <p>
+                    Run 5 kilometers today.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"
+                         style="width:80%;">
+                    </div>
+                </div>
+
+                <span>4 / 5 KM Completed</span>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>Burn 500 Calories</h3>
+
+                <p>
+                    Reach 500 calories burned.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"
+                         style="width:70%;">
+                    </div>
+                </div>
+
+                <span>350 / 500 Calories</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- WEEKLY CHALLENGES -->
+
+    <section class="challenge-section">
+
+        <h2>💪 Weekly Challenges</h2>
+
+        <div class="challenge-grid">
+
+            <div class="challenge-card">
+
+                <h3>Workout 5 Days</h3>
+
+                <p>
+                    Complete workouts on 5 days.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"
+                         style="width:40%;">
+                    </div>
+                </div>
+
+                <span>2 / 5 Days</span>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>10,000 Calories</h3>
+
+                <p>
+                    Burn 10,000 calories this week.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"
+                         style="width:65%;">
+                    </div>
+                </div>
+
+                <span>6500 / 10000 Calories</span>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>50 KM Running</h3>
+
+                <p>
+                    Run a total of 50 KM.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"
+                         style="width:30%;">
+                    </div>
+                </div>
+
+                <span>15 / 50 KM</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+
+    <section class="achievement-section">
+
+        <h2>🏅 Achievements</h2>
+
+        <div class="achievement-grid">
+
+            <div class="achievement-card">
+                🥇
+                <h3>Fitness Beginner</h3>
+                <p>Completed first workout.</p>
+            </div>
+
+            <div class="achievement-card">
+                🔥
+                <h3>7 Day Streak</h3>
+                <p>Worked out for 7 days.</p>
+            </div>
+
+            <div class="achievement-card">
+                💪
+                <h3>Strength Master</h3>
+                <p>Completed 100 workouts.</p>
+            </div>
+
+            <div class="achievement-card">
+                🏃
+                <h3>Runner Pro</h3>
+                <p>Completed 100 KM running.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- USER PROGRESS -->
+
+    <section class="user-progress">
+
+        <h2>📈 Overall Progress</h2>
+
+        <div class="overall-card">
+
+            <h3>Challenge Completion</h3>
+
+            <div class="progress-bar">
+                <div class="progress-fill"
+                     style="width:75%;">
+                </div>
+            </div>
+
+            <p>75% Completed</p>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>

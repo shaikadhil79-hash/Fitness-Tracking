@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Nutrition Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='nutrition.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="bg-circle one"></div>
+    <div class="bg-circle two"></div>
+
+    <div class="container">
+
+        <div class="nutrition-card">
+
+            <h1>🥗 AI Nutrition Planner</h1>
+
+            <p class="subtitle">
+                Get personalized calorie and macronutrient recommendations
+            </p>
+
+           <form action="/nutrition/{{ email }}" method="POST">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>Current Weight (kg)</label>
+
+                        <input type="number"
+                               name="weight"
+                               required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Height (cm)</label>
+
+                        <input type="number"
+                               name="height"
+                               required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Age</label>
+
+                        <input type="number"
+                               name="age"
+                               required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Gender</label>
+
+                        <select name="gender">
+
+                            <option>Male</option>
+
+                            <option>Female</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Activity Level</label>
+
+                        <select name="activity_level">
+
+                            <option>Sedentary</option>
+
+                            <option>Moderately Active</option>
+
+                            <option>Very Active</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Fitness Goal</label>
+
+                        <select name="goal">
+
+                            <option>Lose Fat</option>
+
+                            <option>Gain Muscle</option>
+
+                            <option>Maintain Fitness</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button type="submit">
+
+                    Generate Nutrition Plan
+
+                </button>
+
+            </form>
+
+        </div>
+
+        {% if nutrition %}
+
+        <div class="result-card">
+
+            <h2>Your Nutrition Plan</h2>
+
+            <div class="stats">
+
+                <div class="stat-box">
+
+                    <h3>{{ nutrition.calories }}</h3>
+
+                    <p>Calories</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3>{{ nutrition.protein }}g</h3>
+
+                    <p>Protein</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3>{{ nutrition.carbs }}g</h3>
+
+                    <p>Carbs</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3>{{ nutrition.fats }}g</h3>
+
+                    <p>Fats</p>
+
+                </div>
+
+            </div>
+
+            <div class="meal-plan">
+
+                <h3>🍳 Breakfast</h3>
+                <p>{{ nutrition.breakfast }}</p>
+
+                <h3>🍚 Lunch</h3>
+                <p>{{ nutrition.lunch }}</p>
+
+                <h3>🥗 Dinner</h3>
+                <p>{{ nutrition.dinner }}</p>
+
+                <h3>🥜 Snacks</h3>
+                <p>{{ nutrition.snacks }}</p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

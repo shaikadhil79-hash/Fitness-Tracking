@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FitAI Pro Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <h1 class="logo">
+            FitAI Pro
+        </h1>
+
+        <ul>
+
+            <li>
+              <a href="{{ url_for('dashboard', name=name, email=email) }}">
+        
+</a>
+            </li>
+
+            <li>
+                <a href="/workout/{{ email }}">
+                    🏋 Workout
+                </a>
+            </li>
+
+            <li>
+                <a href="/nutrition/{{ email }}">
+                    🥗 Nutrition
+                </a>
+            </li>
+
+            <li>
+                <a href="/ai_coach/{{ email }}">
+                    🤖 AI Coach
+                </a>
+            </li>
+
+            <li>
+                <a href="/challenges/{{ email }}">
+                    🏆 Challenges
+                </a>
+            </li>
+
+            <li>
+                <a href="/community/{{ email }}">
+                    👥 Community
+                </a>
+            </li>
+
+            <li>
+                <a href="/profile/{{name}}/{{ email }}">
+                    👤 Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h2>
+
+                Welcome,
+
+                <span>
+                    {{ name }}
+                </span>
+
+            </h2>
+
+        </div>
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="circle">
+
+                    {{ workout_count }}
+
+                </div>
+
+                <h3>Workouts</h3>
+
+                <p>Total Workouts</p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="circle">
+
+                    {{ total_calories }}
+
+                </div>
+
+                <h3>Calories</h3>
+
+                <p>Calories Burned</p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="circle">
+
+                    {{ total_duration }}
+
+                </div>
+
+                <h3>Duration</h3>
+
+                <p>Minutes Active</p>
+
+            </div>
+
+        </div>
+
+        <!-- CHART -->
+
+        <div class="chart-container">
+
+            <h2>
+
+                Weekly Calories Analytics
+
+            </h2>
+
+            <canvas id="calorieChart">
+
+            </canvas>
+
+        </div>
+
+        <!-- AI RECOMMENDATION -->
+
+        <div class="recommendation">
+
+            <h2>
+
+                🤖 AI Recommendation
+
+            </h2>
+
+            <p>
+
+                {{ recommendation }}
+
+            </p>
+
+        </div>
+
+        <!-- DIET PLAN -->
+
+        {% if diet_plan %}
+
+        <div class="diet-plan">
+
+            <h2>
+
+                🥗 Personalized Diet Plan
+
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Day</th>
+
+                        <th>Breakfast</th>
+
+                        <th>Lunch</th>
+
+                        <th>Dinner</th>
+
+                        <th>Snacks</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for diet in diet_plan %}
+
+                    <tr>
+
+                        <td>{{ diet.day }}</td>
+
+                        <td>{{ diet.breakfast }}</td>
+
+                        <td>{{ diet.lunch }}</td>
+
+                        <td>{{ diet.dinner }}</td>
+
+                        <td>{{ diet.snacks }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% endif %}
+
+        <!-- WORKOUT HISTORY -->
+
+        <div class="history">
+
+            <h2>
+
+                📈 Workout History
+
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Workout</th>
+
+                        <th>Exercise</th>
+
+                        <th>Sets</th>
+
+                        <th>Reps</th>
+
+                        <th>Duration</th>
+
+                        <th>Calories</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for workout in workouts %}
+
+                    <tr>
+
+                        <td>{{ workout[0] }}</td>
+
+                        <td>{{ workout[1] }}</td>
+
+                        <td>{{ workout[2] }}</td>
+
+                        <td>{{ workout[3] }}</td>
+
+                        <td>{{ workout[4] }}</td>
+
+                        <td>{{ workout[5] }}</td>
+
+                        <td>{{ workout[6] }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const chartLabels = JSON.parse('{{ chart_labels | tojson | safe }}');
+
+const chartValues = JSON.parse('{{ chart_values | tojson | safe }}');
+
+const ctx =
+document.getElementById(
+'calorieChart'
+).getContext('2d');
+
+new Chart(ctx, {
+
+    type:'line',
+
+    data:{
+
+        labels:chartLabels,
+
+        datasets:[{
+
+            label:'Calories Burned',
+
+            data:chartValues,
+
+            borderColor:'#8b5cf6',
+
+            backgroundColor:
+            'rgba(139,92,246,0.2)',
+
+            fill:true,
+
+            tension:0.4
+
+        }]
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                labels:{
+
+                    color:'white'
+                }
+            }
+        },
+
+        scales:{
+
+            x:{
+
+                ticks:{
+
+                    color:'white'
+                }
+            },
+
+            y:{
+
+                ticks:{
+
+                    color:'white'
+                }
+            }
+        }
+    }
+});
+
+</script>
+
+</body>
+
+</html>
